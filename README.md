@@ -1,67 +1,43 @@
-Matomo SDK for Android
-========================
+# Selenium-Python-Example
 
-[![](https://jitpack.io/v/matomo-org/matomo-sdk-android.svg)](https://jitpack.io/#matomo-org/matomo-sdk-android)
-![Build](https://github.com/matomo-org/matomo-sdk-android/actions/workflows/pull-request-ci.yml/badge.svg)
-[![Codecov](https://codecov.io/gh/matomo-org/matomo-sdk-android/branch/master/graph/badge.svg)](https://codecov.io/gh/matomo-org/matomo-sdk-android?branch=master)
+This repository contains the base setup of an UI testing project,
+using Python, Selenium Webdriver and Page Object Model pattern.
 
-Welcome to the [Matomo](http://matomo.org) Tracking SDK for Android. This library helps you send analytics data from Android apps to Matomo instances. Until v4 this library was known as **Piwik** Tracking SDK for Android.
+A simple search in DuckDuckGo to check that results are displayed is used as example
 
-__Features__:
-* Caching and offline support
-* Graceful reconnection handling
-* WIFI-only mode
-* Thread-safe support for multiple trackers
-* Support for custom connection implementations
-* Complete [Matomo HTTP API](https://developer.matomo.org/api-reference/tracking-api) support
-    * [Custom dimensions](https://matomo.org/docs/custom-dimensions/)
-    * [Event Tracking](https://matomo.org/docs/event-tracking/)
-    * [Content Tracking](https://matomo.org/docs/content-tracking/)
-    * [Ecommerce](https://matomo.org/docs/ecommerce-analytics/)
-* Checksum based app install/upgrade tracking
+# Requirements
 
-## Quickstart
-For the not so quick start, [see here](https://github.com/matomo-org/matomo-sdk-android/wiki/Getting-started) or look at our [demo app](https://github.com/matomo-org/matomo-sdk-android/tree/master/exampleapp)
+* Python 3.12.3
+* pip (24.0) and setuptools
+* [venv](<https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/>) (recommended)
 
-* [Setup Matomo](https://matomo.org/docs/installation/) on your server.
-* Include the library in your app modules `build.gradle` file
-  via [JitPack](https://jitpack.io/#matomo-org/matomo-sdk-android)
+# Instalation
 
-```groovy
-repositories {
-  maven { url 'https://jitpack.io' }
-}
-dependencies {
-  implementation 'com.github.matomo-org:matomo-sdk-android:<latest-version>'
-}
-```
+1. Download or clone the repository 
+2. Open a terminal
+3. Go to the project root directory "/selenium-python-example/".
+4. Create a virtual environment: `py -m venv venv`
+5. Activate the virtual environment executing the following script: `.\venv\Scripts\activate`
+6. Execute the following command to download the necessary libraries:  `pip install -r requirements.txt`
 
-* Now you need to initialize your `Tracker`. It's recommended to store it as singleton. You can extend `MatomoApplication` or create and store a `Tracker` instance yourself:
-```java
-import org.matomo.sdk.TrackerBuilder;
+# Test Execution
 
-public class YourApplication extends Application {
-    private Tracker tracker;
-    public synchronized Tracker getTracker() {
-        if (tracker == null){
-            tracker = TrackerBuilder.createDefault("http://domain.tld/matomo.php", 1).build(Matomo.getInstance(this));
-        }
-        return tracker;
-    }
-}
-```
+1. Open a terminal
+2. From the project root directory run: `pytest -v --html=results/report.html`
 
-* The `TrackHelper` class is the easiest way to submit events to your tracker:
-```java
-// The `Tracker` instance from the previous step
-Tracker tracker = ((MatomoApplication) getApplication()).getTracker();
-// Track a screen view
-TrackHelper.track().screen("/activity_main/activity_settings").title("Settings").with(tracker);
-// Monitor your app installs
-TrackHelper.track().download().with(tracker);
-```
+# Configuration
 
-* Something not working? Check [here](https://github.com/matomo-org/matomo-sdk-android/wiki/Troubleshooting).
+By default, tests will be executed in Chrome (normal mode). Preferences can be changed in "/data/config.yaml" file
 
-## License
-Android SDK for Matomo is released under the BSD-3 Clause license, see [LICENSE](https://github.com/matomo-org/matomo-sdk-android/blob/master/LICENSE).
+# Results
+
+To check the report, open the '/results/report.html' file once the execution has finished.
+
+
+# Links
+   
+   [Selenium - Python Documentation](<https://selenium-python.readthedocs.io/>)
+   
+   [Webdriver Manager for Python](<https://github.com/SergeyPirogov/webdriver_manager>)
+   
+   
